@@ -42,9 +42,9 @@ public class MainController {
 
     }
     @PostMapping("/mainPage")
-    public String main(@ModelAttribute("emailOrPhone") EmailOrPhone emailOrPhone,Model model){
+    public String main(@ModelAttribute("emailOrPhone") EmailOrPhone emailOrPhone,Model model) throws Exception {
         System.out.println(emailOrPhone.getEmailOrPhone());
-       ;
+
         model.addAttribute("dataList", msqlDataRepo.getMsqlData(emailOrPhone.getEmailOrPhone()));
 
         return "main";

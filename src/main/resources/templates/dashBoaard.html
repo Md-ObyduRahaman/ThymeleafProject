@@ -8,6 +8,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Include SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <title>DashBoard</title>
 
@@ -20,9 +24,54 @@
         .hidden-div {
             display: none;
         }
+
+
+
+
+        #overlay {
+            background: #ffffff;
+            color: #666666;
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            z-index: 5000;
+            top: 0;
+            left: 0;
+            float: left;
+            text-align: center;
+            padding-top: 25%;
+            opacity: .80;
+        }
+
+        .spinner {
+            margin: 0 auto;
+            height: 64px;
+            width: 64px;
+            animation: rotate 0.8s infinite linear;
+            border: 5px solid firebrick;
+            border-right-color: transparent;
+            border-radius: 50%;
+        }
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
     </style>
 </head>
 <body>
+
+
+
+<div id="overlay" style="display:none;">
+    <div class="spinner"></div>
+    <br/>
+    Loading...
+</div>
 
 <nav class="navbar navbar-expand-lg navbar-light text-white bg-primary">
     <a class="navbar-brand text-white" href="#">TSports</a>
@@ -62,6 +111,8 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
 <script>
+
+
     $("#emailInfoForm").submit(function(event){
         event.preventDefault();
         var formData = $("#emailInfoForm").serialize();
@@ -70,18 +121,38 @@
                 url : "/mainPage",
                 type: 'POST',
                 data: formData,
-                async: false,
-                success: function (data) {
+                beforeSend: function () {
 
+                    $('#overlay').fadeIn();
+                    console.log("Spinnning");
+                },
+                success: function (data) {
+                    console.log("Console Log")
                     $("#view_page").html(data);
+                },
+                error: function (xhr) {
+                    Swal.fire({
+                        title: "Data Not Found",
+                        text: "This Email and Phone number not found",
+                        icon: "error"
+                    });
 
                 },
-                error: function(){
-                  //  sweetAlert("Failed!", "Something went wrong.", "fail", 1000, false);
-                    alert("error")
-                }
+                complete: function () {
+                    $('#overlay').fadeOut();
+                    console.log("Complete")
+                },
+                dataType: 'html'
             });
 
+    });
+
+    $(document).ready(function() {
+        function showSpinner() {
+            $("#spinner").css("display", "block");
+        }
+
+        // Your other code here
     });
 
 

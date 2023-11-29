@@ -13,7 +13,7 @@ public class MsqlDataImpl implements  MsqlDataRepo{
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Override
-    public List<TransactionsData> getMsqlData(String emailOrPhone) {
+    public List<TransactionsData> getMsqlData(String emailOrPhone) throws Exception {
 
         String sql="SELECT tran_status,tran_gw,transaction_id,amount,tran_date,card_type,reg_type,username,subscriber_id,device_type,id FROM transactions\n" +
                 "WHERE username = '"+emailOrPhone+"' ORDER BY id desc;";
@@ -25,6 +25,9 @@ public class MsqlDataImpl implements  MsqlDataRepo{
                     BeanPropertyRowMapper.newInstance(TransactionsData.class));
         }catch (Exception e){
             e.printStackTrace();
+        }
+        if (transactionsData.isEmpty()) {
+            throw new Exception();
         }
 
         return transactionsData;
