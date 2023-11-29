@@ -51,31 +51,22 @@
     <table id="table_id" class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">id</th>
+            <th scope="col">tran_status</th>
+            <th scope="col">transaction_id</th>
+            <th scope="col">subscriber_id</th>
+            <th scope="col">card_type</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+        <tr th:each="obj : ${dataList}">
+            <th th:text="${obj.id}"></th>
+            <td th:text="${obj.tran_status}"></td>
+            <td th:text="${obj.transaction_id}"></td>
+            <td th:text="${obj.subscriber_id}"></td>
+            <td th:text="${obj.card_type}"></td>
         </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-        </tr>
+
         </tbody>
     </table>
 </div>

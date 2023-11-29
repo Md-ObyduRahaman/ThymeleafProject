@@ -13,6 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 @Controller
 public class MainController {
 
+    @Autowired
+     MsqlDataRepo msqlDataRepo;
+
 
 
     @GetMapping(value = {"/login"})
@@ -39,8 +42,11 @@ public class MainController {
 
     }
     @PostMapping("/mainPage")
-    public String main(@ModelAttribute("emailOrPhone") EmailOrPhone emailOrPhone){
+    public String main(@ModelAttribute("emailOrPhone") EmailOrPhone emailOrPhone,Model model){
         System.out.println(emailOrPhone.getEmailOrPhone());
+       ;
+        model.addAttribute("dataList", msqlDataRepo.getMsqlData(emailOrPhone.getEmailOrPhone()));
+
         return "main";
     }
 }
