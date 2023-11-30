@@ -51,20 +51,36 @@
     <table id="table_id" class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">id</th>
-            <th scope="col">tran_status</th>
-            <th scope="col">transaction_id</th>
-            <th scope="col">subscriber_id</th>
-            <th scope="col">card_type</th>
+            <th scope="col">Transaction status</th>
+            <th scope="col">Transaction gw</th>
+            <th scope="col">Transaction id</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Transaction date</th>
+            <th scope="col">Card type</th>
+            <th scope="col">Registration type</th>
+            <th scope="col">Username</th>
+            <th scope="col">Device type</th>
+            <th scope="col">Transaction status</th>
+            <th scope="col">Subscriber id</th>
+            <th scope="col">ID</th>
+
         </tr>
         </thead>
         <tbody>
         <tr th:each="obj : ${dataList}">
-            <th th:text="${obj.id}"></th>
-            <td th:text="${obj.tran_status}"></td>
+            <th th:text="${obj.tran_status}"></th>
+            <th th:text="${obj.tran_gw}"></th>
             <td th:text="${obj.transaction_id}"></td>
-            <td th:text="${obj.subscriber_id}"></td>
+            <td th:text="${obj.amount}"></td>
+            <td th:text="${obj.tran_date}"></td>
             <td th:text="${obj.card_type}"></td>
+            <td th:text="${obj.reg_type}"></td>
+            <td th:text="${obj.username}"></td>
+            <td th:text="${obj.device_type}"></td>
+            <td th:text="${obj.tran_status}"></td>
+            <td th:text="${obj.subscriber_id}"></td>
+            <th th:text="${obj.id}"></th>
+
         </tr>
 
         </tbody>
